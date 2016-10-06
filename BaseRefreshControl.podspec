@@ -15,4 +15,8 @@ s.source_files  = "classes/**/*.{swift,h,m}"
 s.requires_arc = true
 
 
+s.xcconfig = {
+    'SWIFT_VERSION' => '3.0'
+  }
+
 end

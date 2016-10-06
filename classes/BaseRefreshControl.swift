@@ -8,7 +8,7 @@ import UIKit
 open class BaseRefreshControl: UIControl {
 
 	var parent: UIScrollView?
-	open var refreshing: Bool = false
+	open var isRefreshing: Bool = false
 	var orgTopInset: CGFloat = 0
 	open var triggerHeight: CGFloat = 120
 	open var dispHeight: CGFloat = 64
@@ -69,16 +69,16 @@ open class BaseRefreshControl: UIControl {
 		guard let scr = superview as? UIScrollView else { return }
 		if frame.height <= 0 { return }
 
-		let offset = scr.contentOffset.y + (refreshing ? orgTopInset : scr.contentInset.top)
+		let offset = scr.contentOffset.y + (isRefreshing ? orgTopInset : scr.contentInset.top)
 		frame.origin.y = offset
-		isHidden = !refreshing && (offset > 0 || !scr.isDragging)
-		if refreshing { return }
+		isHidden = !isRefreshing && (offset > 0 || !scr.isDragging)
+		if isRefreshing { return }
 
 		var progress = -(offset / triggerHeight)
 		if progress < 0 { progress = 0 }
 		progressRefresh(progress)
 
-		if progress >= 1.0 && !refreshing && !scr.isDragging {
+		if progress >= 1.0 && !isRefreshing && !scr.isDragging {
 			beginRefreshing()
 			sendActions(for: .valueChanged)
 		}
@@ -87,8 +87,8 @@ open class BaseRefreshControl: UIControl {
 	}
 
 	open func beginRefreshing() {
-		if refreshing { return }
-		refreshing = true
+		if isRefreshing { return }
+		isRefreshing = true
 		isHidden = false
 
 		let scr = superview as? UIScrollView
@@ -102,8 +102,8 @@ open class BaseRefreshControl: UIControl {
 	}
 
 	open func endRefreshing() {
-		if !refreshing { return }
-		refreshing = false
+		if !isRefreshing { return }
+		isRefreshing = false
 		isHidden = true
 
 		let scr = superview as? UIScrollView

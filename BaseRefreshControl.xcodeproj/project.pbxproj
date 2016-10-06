@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C307B8111DA615CB006DB899 /* BaseRefreshSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307B8101DA615CB006DB899 /* BaseRefreshSample.swift */; };
 		C3C859221D1ED24000F9D609 /* BaseRefreshControl.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C8591F1D1ED24000F9D609 /* BaseRefreshControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3C859251D1ED25D00F9D609 /* BaseRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C859241D1ED25D00F9D609 /* BaseRefreshControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C307B8101DA615CB006DB899 /* BaseRefreshSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRefreshSample.swift; sourceTree = "<group>"; };
 		C3C859131D1ED21A00F9D609 /* BaseRefreshControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BaseRefreshControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3C8591F1D1ED24000F9D609 /* BaseRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRefreshControl.h; sourceTree = "<group>"; };
 		C3C859201D1ED24000F9D609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 				C3C8591F1D1ED24000F9D609 /* BaseRefreshControl.h */,
 				C3C859201D1ED24000F9D609 /* Info.plist */,
 				C3C859241D1ED25D00F9D609 /* BaseRefreshControl.swift */,
+				C307B8101DA615CB006DB899 /* BaseRefreshSample.swift */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -101,11 +104,12 @@
 		C3C8590A1D1ED21A00F9D609 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = asada;
 				TargetAttributes = {
 					C3C859121D1ED21A00F9D609 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -141,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C307B8111DA615CB006DB899 /* BaseRefreshSample.swift in Sources */,
 				C3C859251D1ED25D00F9D609 /* BaseRefreshControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,8 +167,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -211,8 +218,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -232,6 +241,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -243,6 +253,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -254,6 +265,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -261,6 +273,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -271,6 +284,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nagisa.BaseRefreshControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

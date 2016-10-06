@@ -5,13 +5,13 @@
 
 import UIKit
 
-public class BaseRefreshControl: UIControl {
+open class BaseRefreshControl: UIControl {
 
 	var parent: UIScrollView?
-	public var refreshing: Bool = false
+	open var refreshing: Bool = false
 	var orgTopInset: CGFloat = 0
-	public var triggerHeight: CGFloat = 120
-	public var dispHeight: CGFloat = 64
+	open var triggerHeight: CGFloat = 120
+	open var dispHeight: CGFloat = 64
 
 	let keyPathContentOffset = "contentOffset"
 
@@ -26,43 +26,43 @@ public class BaseRefreshControl: UIControl {
 	}
 
 	public convenience init() {
-		self.init(frame: .zero)
+		self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
 	}
 
 	public convenience init(target: AnyObject?, action: Selector) {
 		self.init(frame: .zero)
-		addTarget(target, action: action, forControlEvents: .ValueChanged)
+		addTarget(target, action: action, for: .valueChanged)
 	}
 
 	func insetup() {
-		userInteractionEnabled = false
-		autoresizingMask = [.FlexibleWidth, .FlexibleBottomMargin]
+		isUserInteractionEnabled = false
+		autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
 		setup()
-		hidden = true
+		isHidden = true
 	}
 
-	override public var frame: CGRect {
+	override open var frame: CGRect {
 		didSet {
 			if bounds.size != oldValue.size { layout() }
 		}
 	}
 
-	override public func willMoveToSuperview(newSuperview: UIView?) {
-		super.willMoveToSuperview(newSuperview)
+	override open func willMove(toSuperview newSuperview: UIView?) {
+		super.willMove(toSuperview: newSuperview)
 		guard let scr = newSuperview as? UIScrollView else { return }
-		scr.addObserver(self, forKeyPath: keyPathContentOffset, options: .New, context: nil)
+		scr.addObserver(self, forKeyPath: keyPathContentOffset, options: .new, context: nil)
 
 		frame = CGRect(x: 0, y: scr.contentOffset.y + scr.contentInset.top, width: scr.bounds.width, height: dispHeight)
 	}
 
-	override public func removeFromSuperview() {
+	override open func removeFromSuperview() {
 		superview?.removeObserver(self, forKeyPath: keyPathContentOffset, context: nil)
 		super.removeFromSuperview()
 	}
 
-	override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String: AnyObject]?, context: UnsafeMutablePointer<Void>) {
+	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
 		if keyPath != keyPathContentOffset {
-			super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
 			return
 		}
 
@@ -71,52 +71,52 @@ public class BaseRefreshControl: UIControl {
 
 		let offset = scr.contentOffset.y + (refreshing ? orgTopInset : scr.contentInset.top)
 		frame.origin.y = offset
-		hidden = !refreshing && (offset > 0 || !scr.dragging)
+		isHidden = !refreshing && (offset > 0 || !scr.isDragging)
 		if refreshing { return }
 
 		var progress = -(offset / triggerHeight)
 		if progress < 0 { progress = 0 }
 		progressRefresh(progress)
 
-		if progress >= 1.0 && !refreshing && !scr.dragging {
+		if progress >= 1.0 && !refreshing && !scr.isDragging {
 			beginRefreshing()
-			sendActionsForControlEvents(.ValueChanged)
+			sendActions(for: .valueChanged)
 		}
 
 		// original refresh is trigged in dragging .. but its confuse scroll
 	}
 
-	public func beginRefreshing() {
+	open func beginRefreshing() {
 		if refreshing { return }
 		refreshing = true
-		hidden = false
+		isHidden = false
 
 		let scr = superview as? UIScrollView
 		orgTopInset = scr?.contentInset.top ?? 0
 
 		willStartRefresh()
-		UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: .AllowUserInteraction, animations: {
+		UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
 			self.frame.origin.y = -self.frame.height
 			scr?.contentInset.top += self.frame.height
 			}, completion: nil)
 	}
 
-	public func endRefreshing() {
+	open func endRefreshing() {
 		if !refreshing { return }
 		refreshing = false
-		hidden = true
+		isHidden = true
 
 		let scr = superview as? UIScrollView
 
 		willEndRefresh()
-		UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: .AllowUserInteraction, animations: {
+		UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
 			scr?.contentInset.top = self.orgTopInset
 			}, completion: nil)
 	}
 
-	public func setup() { }
-	public func layout() { }
-	public func progressRefresh(progress: CGFloat) { }
-	public func willStartRefresh() { }
-	public func willEndRefresh() { }
+	open func setup() { }
+	open func layout() { }
+	open func progressRefresh(_ progress: CGFloat) { }
+	open func willStartRefresh() { }
+	open func willEndRefresh() { }
 }

@@ -84,7 +84,6 @@ open class BRCSRefreshControl : BaseRefreshControl {
 	let sz: CGFloat = 24
 
 	override open func setup() {
-		
 		replicatorLayer.frame = bounds
 		layer.addSublayer(replicatorLayer)
 		
@@ -135,6 +134,10 @@ open class BRCSRefreshControl : BaseRefreshControl {
 	}
 	
 	override open func willEndRefresh() {
+		circle.position.x = center.x + 100
+	}
+	
+	override open func didEndRefresh() {
 		circle.removeAllAnimations()
 		replicatorLayer.removeAllAnimations()
 	}

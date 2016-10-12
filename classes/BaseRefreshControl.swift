@@ -95,28 +95,34 @@ open class BaseRefreshControl: UIControl {
 		orgTopInset = scr?.contentInset.top ?? 0
 
 		willStartRefresh()
-		UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+		UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .curveEaseOut], animations: {
 			self.frame.origin.y = -self.frame.height
 			scr?.contentInset.top += self.frame.height
-			}, completion: nil)
+			}, completion: { success in
+				self.didStartRefresh()
+		})
 	}
 
 	open func endRefreshing() {
 		if !isRefreshing { return }
-		isRefreshing = false
-		isHidden = true
 
 		let scr = superview as? UIScrollView
 
 		willEndRefresh()
-		UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+		UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction,  .curveEaseOut], animations: {
 			scr?.contentInset.top = self.orgTopInset
-			}, completion: nil)
+			}, completion: {success in
+				self.didEndRefresh()
+				self.isHidden = true
+				self.isRefreshing = false
+		})
 	}
 
 	open func setup() { }
 	open func layout() { }
 	open func progressRefresh(_ progress: CGFloat) { }
 	open func willStartRefresh() { }
+	open func didStartRefresh() { }
 	open func willEndRefresh() { }
+	open func didEndRefresh() { }
 }

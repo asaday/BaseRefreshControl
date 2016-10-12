@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "BaseRefreshControl"
-s.version      = "0.0.3"
+s.version      = "0.0.4"
 s.summary      = "Base kit to make custom UIRefresh."
 
 s.homepage     = "https://github.com/asaday/BaseRefreshControl"
